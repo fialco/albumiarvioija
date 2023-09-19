@@ -2,5 +2,19 @@
 <link rel="stylesheet" href="/static/main.css">
 <title>Albumiarvioija</title>
 <h1>Albumiarvioija</h1>
-<hr>
+
+{% if session.user_id %}
+    <p>Terve {{ session.user_name }}</p>
+    <a href="/logout">Kirjaudu ulos</a>
+{% else %}
+    <form class="form" action="/login" method="POST">
+    <p>Käyttäjänimi:<br>
+    <input type="text" name="username"></p>
+    <p>Salasana:<br>
+    <input type="password" name="password"></p>
+    <input id="login" type="submit" value="Kirjaudu">
+    <a id="login" href="/register">Luo uusi käyttäjä</a>
+    </form>
+{% endif %}
+
 {% block content %}{% endblock %}
