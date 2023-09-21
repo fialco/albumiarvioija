@@ -4,7 +4,7 @@
 <h1>Albumiarvioija</h1>
 
 {% if session.user_id %}
-    <p>Terve {{ session.user_name }}</p>
+    <p>Terve {{ session.username }}</p>
     <a href="/logout">Kirjaudu ulos</a>
 {% else %}
     <form class="form" action="/login" method="POST">
