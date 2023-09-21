@@ -2,6 +2,7 @@ from app import app
 from flask import Flask
 from flask import redirect, render_template, request
 import users
+import artists
 
 from db import db
 from sqlalchemy.sql import text
@@ -13,6 +14,13 @@ def index():
     #reviews = result.fetchall()
     #, reviews=reviews
     return render_template("index.html")
+
+@app.route("/browse")
+def browse():
+    #result = db.session.execute(text("SELECT content FROM reviews"))
+    #reviews = result.fetchall()
+    #, reviews=reviews
+    return render_template("browse.html", artists=artists.all_artists())
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

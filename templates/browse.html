@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Kaikki artistit</h2>
+<hr>
+{% for artist in artists %}
+{{ artist.name }}
+<hr>
+{% endfor %}
+
+
+{% endblock %}
