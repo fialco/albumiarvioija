@@ -4,9 +4,8 @@
 <h2>Kaikki artistit</h2>
 <hr>
 {% for artist in artists %}
-{{ artist.name }}
+<a href="/artists/{{ artist.id }}">{{ artist.name }}</a>
 <hr>
 {% endfor %}
-
 
 {% endblock %}

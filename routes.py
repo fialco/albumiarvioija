@@ -22,6 +22,12 @@ def browse():
     #, reviews=reviews
     return render_template("browse.html", artists=artists.all_artists())
 
+@app.route("/artists/<int:artist_id>")
+def artist_page(artist_id):
+    artist = artists.artist_info(artist_id)
+
+    return render_template("artist.html", id=artist_id, name=artist.name, country=artist.country, year=artist.year, genre=artist.genre)
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
