@@ -25,8 +25,14 @@ def browse():
 @app.route("/artists/<int:artist_id>")
 def artist_page(artist_id):
     artist = artists.artist_info(artist_id)
+    albums = artists.all_albums_from_artist(artist_id)
+    return render_template("artist.html", id=artist_id, name=artist.name, country=artist.country, year=artist.year, genre=artist.genre, albums=albums)
 
-    return render_template("artist.html", id=artist_id, name=artist.name, country=artist.country, year=artist.year, genre=artist.genre)
+@app.route("/albums/<int:album_id>")
+def album_page(album_id):
+    album = artists.album_info(album_id)
+    artist = artists.artist_info(album.artist_id)
+    return render_template("album.html", id=album_id, name=album.name, artist_id=album.artist_id, year=album.year, artist_name=artist.name)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

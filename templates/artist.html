@@ -7,5 +7,8 @@ Perustamisvuosi: {{ year }} |
 Kotimaa: {{ country }} |
 Genre: {{ genre }} |
 <hr>
-
+{% for album in albums %}
+<a href="/albums/{{ album.id }}">{{ album.name }}</a>
+<hr>
+{% endfor %}
 {% endblock %}

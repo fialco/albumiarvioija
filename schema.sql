@@ -7,7 +7,7 @@ CREATE TABLE users (
 
 CREATE TABLE artists (
     id SERIAL PRIMARY KEY,
-    name TEXT,
+    name TEXT UNIQUE,
     country TEXT,
     year INTEGER,
     genre TEXT
