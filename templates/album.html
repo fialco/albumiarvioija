@@ -5,6 +5,31 @@
 <h3>{{ artist_name }}</h3>
 <hr>
 Julkaisuvuosi: {{ year }} |
+{% if session.user_id %}
+<hr>
+<h3>Kerro mielipiteesi albumista {{ name }}</h3>
+<form action="/review/" method="post">
+Kommentti:<br>
+<textarea name="comment" rows="3" cols="175" maxlength="1000"></textarea>
+<p>
+Arvosana:
+<select name="score">
+<option value="1">1
+<option value="2">2
+<option value="3">3
+<option value="4">4
+<option value="5">5
+</select>
+<p><input type="submit" value="Lähetä">
+<input type="hidden" name="album_id" value="{{ id }}">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+{% endif %}
+<hr>
+{% for review in reviews %}
+{{ review.comment }}
+{{ review.score }}/5
 <hr>
 
+{% endfor %}
 {% endblock %}

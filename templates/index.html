@@ -3,10 +3,11 @@
 
 <h2>Etusivu</h2>
 
-<!-- <hr>
-{% for review in reviews %}
-{{ review.content }}
 <hr>
-{% endfor %} -->
+{% for review in reviews %}
+{{ review.comment }}
+{{ review.score }}/5
+<hr>
+{% endfor %}
 
 {% endblock %}
