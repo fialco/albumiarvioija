@@ -18,14 +18,15 @@
 * Kaikki käyttäjät voivat lisätä omia arvioitaan albumista.
 ## Tulossa
 * Käyttäjäroolien valtuudet ja rajoitteet (tällä hetkellä rooleilla ei väliä)
-* Artistien ja albumien tietojen lisääminen, muokkaus ja poisto
+* Hakukone artistien ja albumien etsimiseen
+* Artistien ja albumien tietojen lisääminen, muokkaus ja poisto (nyt vain psql:n kautta)
 * Lisää tietoja artisteista ja albumeista kuten kappaleet ja arvioiden keskiarvot
-* Arvosteluissa lisää tietoja kuten kirjoittaja ja kirjoitusaika
+* Arvosteluissa näkymään lisää tietoja kuten kirjoittaja ja kirjoitusaika
 * Ohjelman ulkoasun parannus
 ## Kuinka käyttää ohjelmaa
 Kloonaa repositorio koneellesi ja siirry juurikansioon. Luo kansioon .env-tiedosto ja määritä sisältö seuraavanlaiseksi:
 ```
-DATABASE_URL=<tietokannan-paikallinen-osoite>
+DATABASE_URL=<tietokannan-paikallinen-osoite> (esim DATABASE_URL=postgresql:///user)
 SECRET_KEY=<salainen-avain>
 ```
 Aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
@@ -41,6 +42,11 @@ psql < schema.sql
 Voit lisätä artisteja ja albumeita joko itse manuaalisesti psql:n kautta tai ajaa testausta varten
 ```
 psql < example_db.sql
+```
+Tarvittaessa koko tietokannan voi tyhjentää ja alustaa komennoilla psql:llä
+```
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
 ```
 käynnistä sovellus komennolla
 ```
