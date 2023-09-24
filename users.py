@@ -30,9 +30,6 @@ def register(username, password, rank):
         return False
     return login(username, password)
 
-def user_id():
-    return session.get("user_id", 0)
-
 def logout():
     del session["user_id"]
     del session["username"]
@@ -41,3 +38,6 @@ def logout():
 def check_csrf():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
+        
+def user_id():
+    return session.get("user_id", 0)
