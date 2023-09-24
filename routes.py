@@ -1,6 +1,5 @@
-from app import app
-from flask import Flask
 from flask import redirect, render_template, request
+from app import app
 import users
 import artists
 
@@ -18,7 +17,7 @@ def artist_page(artist_id):
     artist = artists.artist_info(artist_id)
     albums = artists.all_albums_from_artist(artist_id)
 
-    return render_template("artist.html", id=artist_id, name=artist.name, country=artist.country, 
+    return render_template("artist.html", id=artist_id, name=artist.name, country=artist.country,
                            year=artist.year, genre=artist.genre, albums=albums)
 
 @app.route("/albums/<int:album_id>")
@@ -27,7 +26,7 @@ def album_page(album_id):
     artist = artists.artist_info(album.artist_id)
     reviews = artists.all_reviews_for_album(album_id)
 
-    return render_template("album.html", id=album_id, name=album.name, artist_id=album.artist_id, 
+    return render_template("album.html", id=album_id, name=album.name, artist_id=album.artist_id,
                            year=album.year, artist_name=artist.name, reviews=reviews)
 
 @app.route("/review/", methods=["POST"])
@@ -53,7 +52,7 @@ def review():
 def login():
     if request.method == "GET":
         return render_template("login.html")
-    
+
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -61,12 +60,12 @@ def login():
             return redirect("/")
         else:
             return render_template("error.html", message="Väärä tunnus tai salasana")
-    
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
         return render_template("register.html")
-    
+
     if request.method == "POST":
         username = request.form["username"]
         if len(username) < 1 or 20 < len(username):
@@ -76,15 +75,14 @@ def register():
         password2 = request.form["password2"]
         if password1 != password2:
             return render_template("error.html", message="Salasanat eivät ole samat")
-        
+
         rank = request.form["rank"]
         if rank not in ("1", "2", "3"):
             return render_template("error.html", message="Rooli ei kelpaa")
-        
+
         if users.register(username, password1, rank):
             return redirect("/")
-        else:
-            return render_template("error.html", message="Uuden käyttäjän rekisteröinti ei onnistunut")
+        return render_template("error.html", message="Uuden käyttäjän rekisteröinti ei onnistunut")
 
 @app.route("/logout")
 def logout():
