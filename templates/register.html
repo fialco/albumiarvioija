@@ -18,6 +18,7 @@ Käyttäjärooli:
 </select>
 <p>
 <input type="submit" value="Luo tunnus">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 <a href="/">Palaa takaisin</a>
