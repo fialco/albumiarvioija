@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Lisää uusi artisti</h2>
+
+<form action="/add_artist" method="post">
+Artistin nimi: <br><input type="text" name="artist_name" minlength="1" maxlength="50" required>
+<p>
+Kotimaa: <br><input type="text" name="country" minlength="1" maxlength="56" required>
+<p>
+Perustamisvuosi/aktiivisena: <br><input type="number" name="year" min="1940" max="2023" required>
+<p>
+Genre: <br><input type="text" name="genre" minlength="1" maxlength="50" required>
+<p>
+<input type="submit" value="Lisää artisti">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+<a href="/browse">Palaa artisteihin</a>
+
+{% endblock %}
