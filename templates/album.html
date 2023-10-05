@@ -25,6 +25,7 @@ Arvosana:
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% endif %}
+
 <hr>
 {% for review in reviews %}
 {{ review.comment }}

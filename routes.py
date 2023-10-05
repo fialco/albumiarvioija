@@ -47,6 +47,32 @@ def review():
     artists.add_review(users.user_id(), album_id, score, comment)
     return redirect("/albums/"+str(album_id))
 
+@app.route("/add_artist", methods=["GET", "POST"])
+def add_artist():
+    if request.method == "GET":
+        return render_template("add_artist.html")
+
+    if request.method == "POST":
+        artist_name = request.form["artist_name"]
+        if len(artist_name) < 1 or 50 < len(artist_name):
+            return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
+        if artists.check_artist_name(artist_name):
+            return render_template("error.html", message=artist_name +" niminen artisti on jo tietokannassa")
+
+        country = request.form["country"]
+        if len(country) < 1 or 56 < len(country):
+            return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
+        
+        year = request.form["year"]
+        if int(year) < 1940 or 2023 < int(year):
+            return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
+        
+        genre = request.form["genre"]
+        if len(genre) < 1 or 50 < len(artist_name):
+            return render_template("error.html", message="Genren tulisi olla 1-50 merkin välillä")
+
+        artists.add_artist(artist_name, country, year, genre)
+        return redirect("/browse")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

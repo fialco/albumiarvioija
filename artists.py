@@ -22,6 +22,10 @@ def artist_info(artist_id):
     sql = "SELECT name, country, year, genre FROM artists WHERE id=:artist_id"
     return db.session.execute(text(sql), {"artist_id": artist_id}).fetchone()
 
+def check_artist_name(artist_name):
+    sql = "SELECT name FROM artists WHERE name=:artist_name"
+    return db.session.execute(text(sql), {"artist_name": artist_name}).fetchone()
+
 def album_info(album_id):
     sql = "SELECT name, artist_id, year FROM albums WHERE id=:album_id"
     return db.session.execute(text(sql), {"album_id": album_id}).fetchone()
@@ -32,3 +36,14 @@ def add_review(user_id, album_id, score, comment):
     db.session.execute(text(sql), {"user_id":user_id, "album_id":album_id,
                                    "score":score, "comment":comment})
     db.session.commit()
+
+def add_artist(name, country, year, genre):
+    try:
+        sql = """INSERT INTO artists (name, country, year, genre)
+                VALUES (:name, :country, :year, :genre)"""
+        db.session.execute(text(sql), {"name":name, "country":country,
+                                    "year":year, "genre":genre})
+        db.session.commit()
+    except:
+        return False
+    return True
