@@ -47,3 +47,14 @@ def add_artist(name, country, year ):
     except:
         return False
     return True
+
+def add_album(name, artist_id, year, genre):
+    try:
+        sql = """INSERT INTO albums (name, artist_id, year, genre)
+                VALUES (:name, :artist_id, :year, :genre)"""
+        db.session.execute(text(sql), {"name":name, "artist_id":artist_id,
+                                    "year":year, "genre":genre})
+        db.session.commit()
+    except:
+        return False
+    return True

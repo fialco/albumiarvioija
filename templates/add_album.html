@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Lisää uusi {{ artist_name }} albumi</h2>
+
+<form action="/artists/{{ artist_id }}/add_album" method="post">
+Albumin nimi: <br><input type="text" name="album_name" minlength="1" maxlength="50" required>
+<p>
+Julkaisuvuosi: <br><input type="number" name="year" min={{ artist_year }} max="2023" required>
+<p>
+Genre: <br><input type="text" name="genre" minlength="1" maxlength="50" required>
+<p>
+<input type="submit" value="Lisää albumi">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+<a href="/browse">Palaa artisteihin</a>
+
+{% endblock %}

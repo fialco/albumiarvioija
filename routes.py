@@ -27,7 +27,7 @@ def album_page(album_id):
     reviews = artists.all_reviews_for_album(album_id)
 
     return render_template("album.html", id=album_id, name=album.name, artist_id=album.artist_id,
-                           year=album.year,genre=album.genre , artist_name=artist.name, reviews=reviews)
+                           year=album.year, genre=album.genre , artist_name=artist.name, reviews=reviews)
 
 @app.route("/review/", methods=["POST"])
 def review():
@@ -65,14 +65,36 @@ def add_artist():
         
         year = request.form["year"]
         if int(year) < 1940 or 2023 < int(year):
-            return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
+            return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
         
-        #genre = request.form["genre"]
-        #if len(genre) < 1 or 50 < len(artist_name):
-        #    return render_template("error.html", message="Genren tulisi olla 1-50 merkin välillä")
-
         artists.add_artist(artist_name, country, year)
         return redirect("/browse")
+
+
+@app.route("/artists/<int:artist_id>/add_album", methods=["GET", "POST"])
+def add_album(artist_id):
+    if request.method == "GET":
+        artist = artists.artist_info(artist_id)
+        albums = artists.all_albums_from_artist(artist_id)
+        return render_template("add_album.html", artist_id=artist_id, artist_name=artist.name, 
+                           artist_year=artist.year, albums=albums)
+
+    if request.method == "POST":
+        album_name = request.form["album_name"]
+        if len(album_name) < 1 or 50 < len(album_name):
+            return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
+        
+        year = request.form["year"]
+        if int(year) < 1940 or 2023 < int(year):
+            return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
+        
+        genre = request.form["genre"]
+        if len(genre) < 1 or 50 < len(genre):
+            return render_template("error.html", message="Genren tulisi olla 1-50 merkin välillä")
+        
+        artists.add_album(album_name, artist_id, year, genre)
+        return redirect("/artists/"+str(artist_id))
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

@@ -5,6 +5,10 @@
 <hr>
 Perustamisvuosi/Aktiivisena: {{ year }} |
 Kotimaa: {{ country }} |
+{% if (session.user_rank == 1 or session.user_rank == 2) %}
+<hr>
+<a href="/artists/{{ id }}/add_album">Lisää uusi albumi</a>
+{% endif %}
 <hr>
 <h3>Albumit</h3>
 <hr>
