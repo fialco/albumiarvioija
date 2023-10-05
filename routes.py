@@ -18,7 +18,7 @@ def artist_page(artist_id):
     albums = artists.all_albums_from_artist(artist_id)
 
     return render_template("artist.html", id=artist_id, name=artist.name, country=artist.country,
-                           year=artist.year, genre=artist.genre, albums=albums)
+                           year=artist.year , albums=albums)
 
 @app.route("/albums/<int:album_id>")
 def album_page(album_id):
@@ -27,7 +27,7 @@ def album_page(album_id):
     reviews = artists.all_reviews_for_album(album_id)
 
     return render_template("album.html", id=album_id, name=album.name, artist_id=album.artist_id,
-                           year=album.year, artist_name=artist.name, reviews=reviews)
+                           year=album.year,genre=album.genre , artist_name=artist.name, reviews=reviews)
 
 @app.route("/review/", methods=["POST"])
 def review():
@@ -67,11 +67,11 @@ def add_artist():
         if int(year) < 1940 or 2023 < int(year):
             return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
         
-        genre = request.form["genre"]
-        if len(genre) < 1 or 50 < len(artist_name):
-            return render_template("error.html", message="Genren tulisi olla 1-50 merkin välillä")
+        #genre = request.form["genre"]
+        #if len(genre) < 1 or 50 < len(artist_name):
+        #    return render_template("error.html", message="Genren tulisi olla 1-50 merkin välillä")
 
-        artists.add_artist(artist_name, country, year, genre)
+        artists.add_artist(artist_name, country, year)
         return redirect("/browse")
 
 @app.route("/login", methods=["GET", "POST"])

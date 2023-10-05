@@ -10,8 +10,6 @@ Kotimaa: <br><input type="text" name="country" minlength="1" maxlength="56" requ
 <p>
 Perustamisvuosi/aktiivisena: <br><input type="number" name="year" min="1940" max="2023" required>
 <p>
-Genre: <br><input type="text" name="genre" minlength="1" maxlength="50" required>
-<p>
 <input type="submit" value="Lisää artisti">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>

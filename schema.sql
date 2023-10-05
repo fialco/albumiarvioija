@@ -9,15 +9,15 @@ CREATE TABLE artists (
     id SERIAL PRIMARY KEY,
     name TEXT UNIQUE,
     country TEXT,
-    year INTEGER,
-    genre TEXT
+    year INTEGER
 );
 
 CREATE TABLE albums (
     id SERIAL PRIMARY KEY,
     name TEXT,
     artist_id INTEGER REFERENCES artists,
-    year INTEGER
+    year INTEGER,
+    genre TEXT
 );
 
 CREATE TABLE reviews (

@@ -19,7 +19,7 @@ def all_reviews_reversed():
     return db.session.execute(text(sql)).fetchall()
 
 def artist_info(artist_id):
-    sql = "SELECT name, country, year, genre FROM artists WHERE id=:artist_id"
+    sql = "SELECT name, country, year FROM artists WHERE id=:artist_id"
     return db.session.execute(text(sql), {"artist_id": artist_id}).fetchone()
 
 def check_artist_name(artist_name):
@@ -27,7 +27,7 @@ def check_artist_name(artist_name):
     return db.session.execute(text(sql), {"artist_name": artist_name}).fetchone()
 
 def album_info(album_id):
-    sql = "SELECT name, artist_id, year FROM albums WHERE id=:album_id"
+    sql = "SELECT name, artist_id, year, genre FROM albums WHERE id=:album_id"
     return db.session.execute(text(sql), {"album_id": album_id}).fetchone()
 
 def add_review(user_id, album_id, score, comment):
@@ -37,12 +37,12 @@ def add_review(user_id, album_id, score, comment):
                                    "score":score, "comment":comment})
     db.session.commit()
 
-def add_artist(name, country, year, genre):
+def add_artist(name, country, year ):
     try:
-        sql = """INSERT INTO artists (name, country, year, genre)
-                VALUES (:name, :country, :year, :genre)"""
+        sql = """INSERT INTO artists (name, country, year)
+                VALUES (:name, :country, :year)"""
         db.session.execute(text(sql), {"name":name, "country":country,
-                                    "year":year, "genre":genre})
+                                    "year":year})
         db.session.commit()
     except:
         return False
