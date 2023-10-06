@@ -9,11 +9,24 @@ Kotimaa: {{ country }} |
 <hr>
 <a href="/artists/{{ id }}/add_album">Lisää uusi albumi</a>
 {% endif %}
+
 <hr>
 <h3>Albumit</h3>
 <hr>
-{% for album in albums %}
-<a href="/albums/{{ album.id }}">{{ album.name }}</a>
-<hr>
-{% endfor %}
+
+<table>
+    <tr>
+        <th>Nimi</th>
+        <th>Julkaisuvuosi</th>
+        <th>Genre</th>
+    </tr>
+    {% for album in albums %}
+    <tr>
+        <td><a href="/albums/{{ album.id }}">{{ album.name }}</a></td>
+        <td>{{ album.year }}-</td>
+        <td>{{ album.genre }}</td>  
+    </tr>
+    {% endfor %}
+</table>
+
 {% endblock %}

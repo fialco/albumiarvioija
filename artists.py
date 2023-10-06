@@ -2,11 +2,11 @@ from sqlalchemy.sql import text
 from db import db
 
 def all_artists():
-    sql = "SELECT id, name FROM artists ORDER BY name"
+    sql = "SELECT id, name, country, year FROM artists ORDER BY name"
     return db.session.execute(text(sql)).fetchall()
 
 def all_albums_from_artist(artist_id):
-    sql = """SELECT id, name, artist_id FROM albums
+    sql = """SELECT id, name, artist_id, year, genre FROM albums
              WHERE artist_id=:artist_id ORDER BY name"""
     return db.session.execute(text(sql), {"artist_id": artist_id}).fetchall()
 

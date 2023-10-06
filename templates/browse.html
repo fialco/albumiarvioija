@@ -1,15 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
+
 {% if (session.user_rank == 1 or session.user_rank == 2) %}
 <hr>
 <a href="/add_artist">Lisää uusi artisti</a>
 <hr>
 {% endif %}
+
 <h2>Kaikki artistit</h2>
 <hr>
-{% for artist in artists %}
-<a href="/artists/{{ artist.id }}">{{ artist.name }}</a>
-<hr>
-{% endfor %}
+
+<table>
+    <tr>
+        <th>Nimi</th>
+        <th>Aktiivisena</th>
+        <th>Kotimaa</th>
+    </tr>
+    {% for artist in artists %}
+    <tr>
+        <td><a href="/artists/{{ artist.id }}">{{ artist.name }}</a></td>
+        <td>{{ artist.year }}-</td>
+        <td>{{ artist.country }}</td>  
+    </tr>
+    {% endfor %}
+</table>
 
 {% endblock %}
