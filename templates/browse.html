@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<h2>Kaikki artistit</h2>
 {% if (session.user_rank == 1 or session.user_rank == 2) %}
 <hr>
 <a href="/add_artist">Lisää uusi artisti</a>
+<hr>
 {% endif %}
+<h2>Kaikki artistit</h2>
 <hr>
 {% for artist in artists %}
 <a href="/artists/{{ artist.id }}">{{ artist.name }}</a>

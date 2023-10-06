@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if (session.user_rank == 1 or session.user_rank == 2) %}
 
 <h2>Lisää uusi artisti</h2>
 
@@ -15,5 +16,11 @@ Perustamisvuosi/aktiivisena: <br><input type="number" name="year" min="1940" max
 </form>
 
 <a href="/browse">Palaa artisteihin</a>
+{% else %}
+<p>
+<h2>PÄÄSY KIELLETTY</h2>
+<p>
+<a href="/browse">Walk of shame (Palaa artisteihin)</a>
 
+{% endif %}
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if (session.user_rank == 1 or session.user_rank == 2) %}
 
 <h2>Lisää uusi {{ artist_name }} albumi</h2>
 
@@ -14,6 +15,12 @@ Genre: <br><input type="text" name="genre" minlength="1" maxlength="50" required
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
-<a href="/browse">Palaa artisteihin</a>
+<a href="/artists/{{ artist_id }}">Palaa artistiin</a>
 
+{% else %}
+<p>
+<h2>PÄÄSY KIELLETTY</h2>
+<p>
+<a href="/artists/{{ artist_id }}">Walk of shame (Palaa artistiin)</a>
+{% endif %}
 {% endblock %}
