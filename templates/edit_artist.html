@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if (session.user_rank == 1 or session.user_rank == 2) %}
+
+<h2>Muokkaa artistin {{ name }} tietoja</h2>
+
+<form action="/artists/{{ id }}/edit_artist" method="post">
+Artistin nimi: <br><input type="text" name="artist_name" value={{ name }} minlength="1" maxlength="50" required>
+<p>
+Kotimaa: <br><input type="text" name="country" value={{ country }} minlength="1" maxlength="56" required>
+<p>
+Perustamisvuosi/aktiivisena: <br><input type="number" name="year" value={{ year }} min="1940" max="2023" required>
+<p>
+<input type="submit" value="Vahvista muutokset">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+<a href="/browse">Palaa artisteihin</a>
+{% else %}
+<p>
+<h2>PÄÄSY KIELLETTY</h2>
+<p>
+<a href="/browse">Walk of shame (Palaa artisteihin)</a>
+
+{% endif %}
+{% endblock %}

@@ -8,6 +8,7 @@ Kotimaa: {{ country }} |
 {% if (session.user_rank == 1 or session.user_rank == 2) %}
 <hr>
 <a href="/artists/{{ id }}/add_album">Lisää uusi albumi</a>
+<a href="/artists/{{ id }}/edit_artist">Muokkaa artistin tietoja</a>
 {% endif %}
 
 <hr>

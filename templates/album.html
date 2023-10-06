@@ -6,9 +6,15 @@
 <hr>
 Julkaisuvuosi: {{ year }} |
 Genre: {{ genre }} |
+{% if (session.user_rank == 1 or session.user_rank == 2) %}
+<hr>
+<a href="/albums/{{ id }}/edit_album">Muokkaa albumin tietoja</a>
+{% endif %}
+
 {% if session.user_id %}
 <hr>
 <h3>Kerro mielipiteesi albumista {{ name }}</h3>
+
 <form action="/review/" method="post">
 Kommentti:<br>
 <textarea name="comment" rows="3" cols="175" maxlength="1000"></textarea>

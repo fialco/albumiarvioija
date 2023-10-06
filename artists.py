@@ -37,7 +37,7 @@ def add_review(user_id, album_id, score, comment):
                                    "score":score, "comment":comment})
     db.session.commit()
 
-def add_artist(name, country, year ):
+def add_artist(name, country, year):
     try:
         sql = """INSERT INTO artists (name, country, year)
                 VALUES (:name, :country, :year)"""
@@ -47,6 +47,20 @@ def add_artist(name, country, year ):
     except:
         return False
     return True
+
+def edit_artist(id, name, country, year):
+    sql = """UPDATE artists SET (name, country, year) = 
+            (:name, :country, :year) WHERE id=:id"""
+    db.session.execute(text(sql), {"id":id, "name":name, 
+    "country":country, "year":year})
+    db.session.commit()
+
+def edit_album(id, name, year, genre):
+    sql = """UPDATE albums SET (name, year, genre) = 
+            (:name, :year, :genre) WHERE id=:id"""
+    db.session.execute(text(sql), {"id":id, "name":name, 
+    "year":year, "genre":genre})
+    db.session.commit()
 
 def add_album(name, artist_id, year, genre):
     try:
