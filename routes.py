@@ -53,6 +53,7 @@ def add_artist():
         return render_template("add_artist.html")
 
     if request.method == "POST":
+        users.check_csrf()
         artist_name = request.form["artist_name"]
         if len(artist_name) < 1 or 50 < len(artist_name):
             return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
@@ -80,6 +81,7 @@ def add_album(artist_id):
                            artist_year=artist.year, albums=albums)
 
     if request.method == "POST":
+        users.check_csrf()
         album_name = request.form["album_name"]
         if len(album_name) < 1 or 50 < len(album_name):
             return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
@@ -103,6 +105,7 @@ def edit_artist(artist_id):
                            year=artist.year, country=artist.country)
 
     if request.method == "POST":
+        users.check_csrf()
         artist = artists.artist_info(artist_id)
         artist_name = request.form["artist_name"]
         if len(artist_name) < 1 or 50 < len(artist_name):
@@ -130,6 +133,7 @@ def edit_album(album_id):
                            year=album.year, genre=album.genre, artist_year=artist.year)
 
     if request.method == "POST":
+        users.check_csrf()
         album = artists.album_info(album_id)
         album_name = request.form["album_name"]
         if len(album_name) < 1 or 50 < len(album_name):
@@ -152,6 +156,7 @@ def login():
         return render_template("login.html")
 
     if request.method == "POST":
+        users.check_csrf()
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username, password):
@@ -165,6 +170,7 @@ def register():
         return render_template("register.html")
 
     if request.method == "POST":
+        users.check_csrf()
         username = request.form["username"]
         if len(username) < 1 or 20 < len(username):
             return render_template("error.html", message="Käyttäjätunnuksen tulisi olla 1-20 merkin välillä")
