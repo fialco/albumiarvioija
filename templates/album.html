@@ -17,7 +17,7 @@ Genre: {{ genre }} |
 
 <form action="/review/" method="post">
 Kommentti:<br>
-<textarea name="comment" rows="3" cols="175" maxlength="1000"></textarea>
+<textarea name="comment" rows="3" cols="158" maxlength="500"></textarea>
 <p>
 Arvosana:
 <select name="score">
@@ -34,10 +34,13 @@ Arvosana:
 {% endif %}
 
 <hr>
-{% for review in reviews %}
-{{ review.comment }}
-{{ review.score }}/5
-<hr>
-
+{% for review in reviews %} 
+<ul>
+    <li>{{ review.username }} {{ review.score }}/5 {{ review.created.strftime("%d-%m-%Y %H:%M:%S") }}
+    <p>
+    {{ review.comment }}
+    <hr></li>
+</ul>
 {% endfor %}
+
 {% endblock %}

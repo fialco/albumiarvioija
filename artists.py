@@ -11,11 +11,14 @@ def all_albums_from_artist(artist_id):
     return db.session.execute(text(sql), {"artist_id": artist_id}).fetchall()
 
 def all_reviews_for_album(album_id):
-    sql = "SELECT id, user_id, score, comment FROM reviews WHERE album_id=:album_id"
+    sql = """SELECT r.score, r.comment, r.created, u.username FROM reviews r 
+            LEFT JOIN users u ON r.user_id=u.id WHERE r.album_id=:album_id"""
     return db.session.execute(text(sql), {"album_id": album_id}).fetchall()
 
 def all_reviews_reversed():
-    sql = "SELECT id, user_id, score, comment FROM reviews ORDER BY id DESC"
+    sql = """SELECT r.score, r.comment, r.created, a.id, a.name, u.username FROM reviews r 
+            LEFT JOIN albums a ON r.album_id=a.id 
+            LEFT JOIN users u ON r.user_id=u.id ORDER BY r.created DESC"""
     return db.session.execute(text(sql)).fetchall()
 
 def artist_info(artist_id):
@@ -31,8 +34,8 @@ def album_info(album_id):
     return db.session.execute(text(sql), {"album_id": album_id}).fetchone()
 
 def add_review(user_id, album_id, score, comment):
-    sql = """INSERT INTO reviews (user_id, album_id, score, comment)
-             VALUES (:user_id, :album_id, :score, :comment)"""
+    sql = """INSERT INTO reviews (user_id, album_id, score, comment, created)
+             VALUES (:user_id, :album_id, :score, :comment, NOW())"""
     db.session.execute(text(sql), {"user_id":user_id, "album_id":album_id,
                                    "score":score, "comment":comment})
     db.session.commit()

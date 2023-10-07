@@ -20,3 +20,12 @@ body {
 table, th, td {
   border:1px solid black;
 }
+
+ul {
+    padding-left: 0px;
+    list-style-type: none;
+    width: 100%;
+    word-wrap: break-word;
+
+
+}
