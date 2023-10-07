@@ -25,5 +25,14 @@ CREATE TABLE reviews (
     user_id INTEGER REFERENCES users,
     album_id INTEGER REFERENCES albums,
     score INTEGER,
-    comment TEXT
+    comment TEXT,
+    created TIMESTAMP
+);
+
+CREATE TABLE tracks (
+    id SERIAL PRIMARY KEY,
+    artist_id INTEGER REFERENCES artists,
+    album_id INTEGER REFERENCES albums,
+    name TEXT,
+    length FLOAT
 );
