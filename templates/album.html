@@ -40,11 +40,18 @@ Arvosana:
 {% endif %}
 
 <hr>
-{% for review in reviews %} 
+{% for review in reviews %}
 <ul>
     <li>{{ review.username }} {{ review.score }}/5 {{ review.created.strftime("%d-%m-%Y %H:%M:%S") }}
     <p>
     {{ review.comment }}
+    {% if session.user_rank == 1 %}
+    <form action="/remove_rev/" method="post">
+        <p><input type="submit" value="Poista kommentti">
+        <input type="hidden" name="review_id" value="{{ review.review_id }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+    {% endif %}
     <hr></li>
 </ul>
 {% endfor %}

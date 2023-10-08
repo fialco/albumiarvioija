@@ -46,6 +46,13 @@ def review():
     artists.add_review(users.user_id(), album_id, score, comment)
     return redirect("/albums/"+str(album_id))
 
+@app.route("/remove_rev/", methods=["POST"])
+def remove_rev():
+    users.check_csrf()
+    review_id = request.form["review_id"]
+    artists.remove_rev(review_id)
+    return redirect("/browse")
+
 @app.route("/add_artist", methods=["GET", "POST"])
 def add_artist():
     if request.method == "GET":
@@ -62,11 +69,11 @@ def add_artist():
         country = request.form["country"]
         if len(country) < 1 or 56 < len(country):
             return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
-        
+
         year = request.form["year"]
         if int(year) < 1940 or 2023 < int(year):
             return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
-        
+
         artists.add_artist(artist_name, country, year)
         return redirect("/browse")
 
@@ -75,7 +82,7 @@ def add_album(artist_id):
     if request.method == "GET":
         artist = artists.artist_info(artist_id)
         albums = artists.all_albums_from_artist(artist_id)
-        return render_template("add_album.html", artist_id=artist_id, artist_name=artist.name, 
+        return render_template("add_album.html", artist_id=artist_id, artist_name=artist.name,
                            artist_year=artist.year, albums=albums)
 
     if request.method == "POST":
@@ -83,15 +90,15 @@ def add_album(artist_id):
         album_name = request.form["album_name"]
         if len(album_name) < 1 or 50 < len(album_name):
             return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
-        
+
         year = request.form["year"]
         if int(year) < 1940 or 2023 < int(year):
             return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
-        
+
         genre = request.form["genre"]
         if len(genre) < 1 or 50 < len(genre):
             return render_template("error.html", message="Genren tulisi olla 1-50 merkin välillä")
-        
+
         artists.add_album(album_name, artist_id, year, genre)
         return redirect("/artists/"+str(artist_id))
 
@@ -99,7 +106,7 @@ def add_album(artist_id):
 def edit_artist(artist_id):
     if request.method == "GET":
         artist = artists.artist_info(artist_id)
-        return render_template("edit_artist.html", id=artist_id, name=artist.name, 
+        return render_template("edit_artist.html", id=artist_id, name=artist.name,
                            year=artist.year, country=artist.country)
 
     if request.method == "POST":
@@ -114,11 +121,11 @@ def edit_artist(artist_id):
         country = request.form["country"]
         if len(country) < 1 or 56 < len(country):
             return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
-        
+
         year = request.form["year"]
         if int(year) < 1940 or 2023 < int(year):
             return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
-        
+
         artists.edit_artist(artist_id, artist_name, country, year)
         return redirect("/artists/"+str(artist_id))
 
@@ -127,7 +134,7 @@ def edit_album(album_id):
     if request.method == "GET":
         album = artists.album_info(album_id)
         artist = artists.artist_info(album.artist_id)
-        return render_template("edit_album.html", id=album_id, name=album.name, 
+        return render_template("edit_album.html", id=album_id, name=album.name,
                            year=album.year, genre=album.genre, artist_year=artist.year)
 
     if request.method == "POST":
@@ -144,7 +151,7 @@ def edit_album(album_id):
         genre = request.form["genre"]
         if len(genre) < 1 or 56 < len(genre):
             return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
-        
+
         artists.edit_album(album_id, album_name, year, genre)
         return redirect("/albums/"+str(album_id))
 
@@ -174,7 +181,7 @@ def register():
         return render_template("register.html")
 
     if request.method == "POST":
-        users.check_csrf()
+
         username = request.form["username"]
         if len(username) < 1 or 20 < len(username):
             return render_template("error.html", message="Käyttäjätunnuksen tulisi olla 1-20 merkin välillä")
