@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Hakutulokset</h2>
+<hr>
+
+<table>
+    <tr>
+        <th>Artisti</th>
+        <th>Albumi</th>
+    </tr>
+    {% for result in query %}
+    <tr>
+        <td><a href="/artists/{{ result.artist_id }}">{{ result.artist }}</a></td>
+        <td><a href="/albums/{{ result.album_id }}">{{ result.album }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
