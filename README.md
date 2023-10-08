@@ -17,12 +17,13 @@
 * Albumeilla on omat sivunsa jossa lista kaikista arvosteluista ja yleistä infoa.
 * Kaikki käyttäjät voivat lisätä omia arvioitaan albumista.
 ## Tulossa
-* Käyttäjäroolien valtuudet ja rajoitteet (tällä hetkellä rooleilla ei väliä)
-* Hakukone artistien ja albumien etsimiseen
-* Artistien ja albumien tietojen lisääminen, muokkaus ja poisto (nyt vain psql:n kautta)
-* Lisää tietoja artisteista ja albumeista kuten kappaleet ja arvioiden keskiarvot
-* Arvosteluissa näkymään lisää tietoja kuten kirjoittaja ja kirjoitusaika
+* Artistien, albumien ja arvosteluiden poisto
+* Albumeiden kappaleiden lisäys (tietokanta valmiina mutta vielä käyttämätön)
 * Ohjelman ulkoasun parannus
+* Mahdollisien bugien liiskaus ja koodin siivous
+## Tiedossa olevat ongelmat
+* Samalle artistille voi lisätä useita saman nimisiä albumeita
+* Sama käyttäjä pystyy kirjoittamaan useamman arvion samasta albumista
 ## Kuinka käyttää ohjelmaa
 Kloonaa repositorio koneellesi ja siirry juurikansioon. Luo kansioon .env-tiedosto ja määritä sisältö seuraavanlaiseksi:
 ```
@@ -38,10 +39,6 @@ pip install -r ./requirements.txt
 Käynnistä postgersql tietokanta ja määritä tietokannan skeema komennolla
 ```
 psql < schema.sql
-```
-Voit lisätä artisteja ja albumeita joko itse manuaalisesti psql:n kautta tai ajaa testausta varten
-```
-psql < example_db.sql
 ```
 Tarvittaessa koko tietokannan voi tyhjentää ja alustaa komennoilla psql:llä
 ```
