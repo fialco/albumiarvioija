@@ -10,7 +10,7 @@ def index():
 
 @app.route("/browse")
 def browse():
-    return render_template("browse.html", artists=artists.all_artists())
+    return render_template("browse.html", artists=artists.all_artist_info())
 
 @app.route("/artists/<int:artist_id>")
 def artist_page(artist_id):

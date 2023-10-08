@@ -15,12 +15,16 @@
         <th>Nimi</th>
         <th>Aktiivisena</th>
         <th>Kotimaa</th>
+        <th>Albumeita</th>
+        <th>Kappaleita</th>
     </tr>
     {% for artist in artists %}
     <tr>
         <td><a href="/artists/{{ artist.id }}">{{ artist.name }}</a></td>
         <td>{{ artist.year }}-</td>
-        <td>{{ artist.country }}</td>  
+        <td>{{ artist.country }}</td>
+        <th>{{ artist.album_count }}</th>
+        <th></th>
     </tr>
     {% endfor %}
 </table>

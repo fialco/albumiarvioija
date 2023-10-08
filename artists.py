@@ -1,8 +1,9 @@
 from sqlalchemy.sql import text
 from db import db
 
-def all_artists():
-    sql = "SELECT id, name, country, year FROM artists ORDER BY name"
+def all_artist_info():
+    sql = """SELECT a.id, a.name, a.country, a.year, COUNT(b.id) AS album_count FROM artists a 
+            LEFT JOIN albums b ON a.id=b.artist_id GROUP BY a.id ORDER BY name"""
     return db.session.execute(text(sql)).fetchall()
 
 def all_albums_from_artist(artist_id):
@@ -48,7 +49,6 @@ def add_artist(name, country, year):
     db.session.execute(text(sql), {"name":name, "country":country,
                                 "year":year})
     db.session.commit()
-
 
 def edit_artist(id, name, country, year):
     sql = """UPDATE artists SET (name, country, year) = 
