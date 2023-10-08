@@ -17,13 +17,14 @@
 * Albumeilla on omat sivunsa jossa lista kaikista arvosteluista ja yleistä infoa.
 * Kaikki käyttäjät voivat lisätä omia arvioitaan albumista.
 ## Tulossa
-* Artistien, albumien ja arvosteluiden poisto
+* Artistien ja albumien poisto
 * Albumeiden kappaleiden lisäys (tietokanta valmiina mutta vielä käyttämätön)
 * Ohjelman ulkoasun parannus
 * Mahdollisien bugien liiskaus ja koodin siivous
 ## Tiedossa olevat ongelmat
 * Samalle artistille voi lisätä useita saman nimisiä albumeita
 * Sama käyttäjä pystyy kirjoittamaan useamman arvion samasta albumista
+* Arvostelun poisto heittää takaisin artistilistaan eikä albumiin kuten on tarkoitus
 ## Kuinka käyttää ohjelmaa
 Kloonaa repositorio koneellesi ja siirry juurikansioon. Luo kansioon .env-tiedosto ja määritä sisältö seuraavanlaiseksi:
 ```
