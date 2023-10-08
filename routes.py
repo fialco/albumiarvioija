@@ -148,6 +148,12 @@ def edit_album(album_id):
         artists.edit_album(album_id, album_name, year, genre)
         return redirect("/albums/"+str(album_id))
 
+@app.route("/search")
+def search():
+        query = request.args["query"]
+        result = artists.search(query)
+        return render_template("search.html", query=result)
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":

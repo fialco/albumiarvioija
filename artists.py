@@ -71,3 +71,8 @@ def add_album(name, artist_id, year, genre):
                                 "year":year, "genre":genre})
     db.session.commit()
 
+def search(query):
+    sql = """SELECT a.id AS artist_id, a.name AS artist, b.id AS album_id, b.name AS album FROM artists a 
+            LEFT JOIN albums b ON a.id=b.artist_id WHERE LOWER(a.name) 
+            LIKE LOWER(:query) OR LOWER(b.name) LIKE LOWER(:query)"""
+    return db.session.execute(text(sql), {"query":"%"+query+"%"}).fetchall()

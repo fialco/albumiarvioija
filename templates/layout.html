@@ -4,7 +4,7 @@
 <h1>Albumiarvioija</h1>
 
 {% if session.user_id %}
-    <p>Terve {{ session.username }}</p>
+    <p>Terve {{ session.username }}!</p>
     <a href="/logout">Kirjaudu ulos</a>
 {% else %}
     <form class="form" action="/login" method="POST">
@@ -21,5 +21,9 @@
 <a href="/">Etusivu</a>
 <a href="/browse">Selaa artisteja</a>
 
+<form action="/search" method="GET">
+    Hae artistia tai albumia: <input type="text" name="query" required>
+    <input type="submit" value="Hae">
+</form>
 
 {% block content %}{% endblock %}
