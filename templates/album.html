@@ -3,9 +3,16 @@
 
 <h2>{{ name }}</h2>
 <h3>{{ artist_name }}</h3>
-<hr>
-Julkaisuvuosi: {{ year }} |
-Genre: {{ genre }} |
+
+<table>
+    <tr>
+        <th>Julkaisuvuosi: {{ year }}</th>
+        <th>Genre: {{ genre }}</th>
+        <th>Genre</th>
+        <th>Arvosana: {{ score }}</th>
+    </tr>
+</table>
+
 {% if (session.user_rank == 1 or session.user_rank == 2) %}
 <hr>
 <a href="/albums/{{ id }}/edit_album">Muokkaa albumin tietoja</a>
@@ -17,7 +24,7 @@ Genre: {{ genre }} |
 
 <form action="/review/" method="post">
 Kommentti:<br>
-<textarea name="comment" rows="3" cols="158" maxlength="500"></textarea>
+<textarea name="comment" rows="3" cols="158" minlength="1" maxlength="500"></textarea>
 <p>
 Arvosana:
 <select name="score">

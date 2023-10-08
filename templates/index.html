@@ -3,10 +3,12 @@
 
 <h2>Etusivu</h2>
 
+
 <hr>
 {% for review in reviews %} 
 <ul>
-    <li><td><a href="/albums/{{ review.id }}">{{ review.name }}</a></td> {{ review.username }} {{ review.score }}/5 {{ review.created.strftime("%d-%m-%Y %H:%M:%S") }} 
+    <li><td><a href="/albums/{{ review.id }}">{{ review.name }}</a></td> {{ review.username }} 
+    {{ review.score }}/5 {{ review.created.strftime("%d-%m-%Y %H:%M:%S") }} 
     <p>
     {{ review.comment }}
     <hr></li>

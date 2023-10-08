@@ -2,9 +2,15 @@
 {% block content %}
 
 <h2>{{ name }}</h2>
-<hr>
-Perustamisvuosi/Aktiivisena: {{ year }} |
-Kotimaa: {{ country }} |
+
+<table>
+    <tr>
+        <th>Perustamisvuosi/Aktiivisena: {{ year }}</th>
+        <th>Kotimaa: {{ country }}</th>
+        <th>Genret:{% for album in albums %} {{ album.genre }}, {% endfor %}</th>
+    </tr>
+</table>
+
 {% if (session.user_rank == 1 or session.user_rank == 2) %}
 <hr>
 <a href="/artists/{{ id }}/add_album">Lisää uusi albumi</a>
@@ -20,12 +26,14 @@ Kotimaa: {{ country }} |
         <th>Nimi</th>
         <th>Julkaisuvuosi</th>
         <th>Genre</th>
+        <th>Arvosana</th>
     </tr>
     {% for album in albums %}
     <tr>
         <td><a href="/albums/{{ album.id }}">{{ album.name }}</a></td>
         <td>{{ album.year }}-</td>
-        <td>{{ album.genre }}</td>  
+        <td>{{ album.genre }}</td>
+        <td>{{ album.score }}/5</td>  
     </tr>
     {% endfor %}
 </table>

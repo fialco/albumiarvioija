@@ -25,9 +25,8 @@ def album_page(album_id):
     album = artists.album_info(album_id)
     artist = artists.artist_info(album.artist_id)
     reviews = artists.all_reviews_for_album(album_id)
-
     return render_template("album.html", id=album_id, name=album.name, artist_id=album.artist_id,
-                           year=album.year, genre=album.genre , artist_name=artist.name, reviews=reviews)
+                           year=album.year, genre=album.genre , artist_name=artist.name, reviews=reviews, score=album.score)
 
 @app.route("/review/", methods=["POST"])
 def review():
@@ -70,7 +69,6 @@ def add_artist():
         
         artists.add_artist(artist_name, country, year)
         return redirect("/browse")
-
 
 @app.route("/artists/<int:artist_id>/add_album", methods=["GET", "POST"])
 def add_album(artist_id):
