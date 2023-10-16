@@ -99,7 +99,14 @@ def add_album(artist_id):
         if len(genre) < 1 or 50 < len(genre):
             return render_template("error.html", message="Genren tulisi olla 1-50 merkin välillä")
 
-        artists.add_album(album_name, artist_id, year, genre)
+        track_name = request.form.getlist("track_name")
+        track_length = request.form.getlist("track_length")
+
+        album_id = artists.add_album(album_name, artist_id, year, genre)
+
+        for i in range(len(track_name)):       
+            artists.add_tracks(artist_id, album_id[0], track_name[i], track_length[i])
+
         return redirect("/artists/"+str(artist_id))
 
 @app.route("/artists/<int:artist_id>/edit_artist", methods=["GET", "POST"])

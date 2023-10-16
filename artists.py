@@ -71,9 +71,18 @@ def edit_album(id, name, year, genre):
 
 def add_album(name, artist_id, year, genre):
     sql = """INSERT INTO albums (name, artist_id, year, genre)
-            VALUES (:name, :artist_id, :year, :genre)"""
-    db.session.execute(text(sql), {"name":name, "artist_id":artist_id,
+            VALUES (:name, :artist_id, :year, :genre) RETURNING albums.id"""
+    id = db.session.execute(text(sql), {"name":name, "artist_id":artist_id,
                                 "year":year, "genre":genre})
+    db.session.commit()
+    return id.fetchone()
+
+
+def add_tracks(artist_id, album_id, name, length):
+    sql = """INSERT INTO tracks (artist_id, album_id, name, length)
+            VALUES (:artist_id, :album_id, :name, :length)"""
+    db.session.execute(text(sql), {"artist_id":artist_id, "album_id":album_id,
+                                "name":name, "length":length})
     db.session.commit()
 
 def search(query):
