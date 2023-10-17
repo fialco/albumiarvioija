@@ -3,28 +3,17 @@
 * Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
 * Käyttäjä näkee etusivulla viimeisimpiä annettuja arvosteluja albumeille ja arvion lähetysajan.
 * Käyttäjä voi etsiä artistia tai albumia hakupalkilla ja selata niitä listoittain.
-* Artisteilla on omat sivunsa josta löytyy lista albumeista ja yleistä infoa (kotimaa, perustusvuosi, genre yms).
+* Artisteilla on omat sivunsa josta löytyy lista albumeista ja yleistä infoa (kotimaa, perustusvuosi/aktiivisena, genre yms).
 * Albumeilla on omat sivunsa jossa lista kaikista arvosteluista, arvioiden keskiarvo ja yleistä infoa.
 * Käyttäjä voi lisätä, muokata ja poistaa omia arvioitaan albumista.
 * Luotettu käyttäjä voi lisätä sekä muokata artistien ja albumien tietoja. 
 * Ylläpitäjä voi lisätä sekä muokata artistien ja albumien tietoja
 * Ylläpitäjä voi poistaa käyttäjien arvosteluja.
-## Nykyinen tilanne
-* Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
-* Käyttäjä näkee etusivulla viimeisimpiä annettuja arvosteluja albumeille.
-* Käyttäjä voi selata kaikkia artisteja listalta.
-* Artisteilla on omat sivunsa josta löytyy lista albumeista ja yleistä infoa (kotimaa, perustusvuosi, genre yms).
-* Albumeilla on omat sivunsa jossa lista kaikista arvosteluista ja yleistä infoa.
-* Kaikki käyttäjät voivat lisätä omia arvioitaan albumista.
 ## Tulossa
 * Artistien ja albumien poisto
-* Albumeiden kappaleiden lisäys (tietokanta valmiina mutta vielä käyttämätön)
+* Albumeiden kappaleiden muokkaus
 * Ohjelman ulkoasun parannus
 * Mahdollisien bugien liiskaus ja koodin siivous
-## Tiedossa olevat ongelmat
-* Samalle artistille voi lisätä useita saman nimisiä albumeita
-* Sama käyttäjä pystyy kirjoittamaan useamman arvion samasta albumista
-* Arvostelun poisto heittää takaisin artistilistaan eikä albumiin kuten on tarkoitus
 ## Kuinka käyttää ohjelmaa
 Kloonaa repositorio koneellesi ja siirry juurikansioon. Luo kansioon .env-tiedosto ja määritä sisältö seuraavanlaiseksi:
 ```
