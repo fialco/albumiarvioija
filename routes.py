@@ -90,8 +90,12 @@ def add_album(artist_id):
     if request.method == "POST":
         users.check_csrf()
         album_name = request.form["album_name"]
+        name_check = artists.check_name(artist_id, album_name)
         if len(album_name) < 1 or 50 < len(album_name):
             return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
+
+        if name_check:
+            return render_template("error.html", message="Artistilla on jo saman niminen albumi tietokannassa")
 
         year = request.form["year"]
         if int(year) < 1940 or 2023 < int(year):
@@ -149,9 +153,15 @@ def edit_album(album_id):
     if request.method == "POST":
         users.check_csrf()
         album = artists.album_info(album_id)
+        artist = artists.artist_info(album.artist_id)
         album_name = request.form["album_name"]
+        name_check = artists.check_name(artist.id, album_name)
         if len(album_name) < 1 or 50 < len(album_name):
             return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
+
+        if name_check:
+            if album_name.lower() != name_check[0]:
+                return render_template("error.html", message="Artistilla on jo saman niminen albumi tietokannassa")
 
         year = request.form["year"]
         if int(year) < 1940 or 2023 < int(year):

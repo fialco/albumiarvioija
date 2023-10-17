@@ -13,6 +13,10 @@ def all_albums_from_artist(artist_id):
             GROUP BY a.id ORDER BY a.year"""
     return db.session.execute(text(sql), {"artist_id": artist_id}).fetchall()
 
+def check_name(artist_id, name):
+    sql = "SELECT LOWER(name) FROM albums WHERE artist_id=:artist_id AND LOWER(name)=LOWER(:name)"
+    return db.session.execute(text(sql), {"artist_id": artist_id, "name": name}).fetchone()
+
 def all_reviews_for_album(album_id):
     sql = """SELECT r.id AS review_id, r.score, r.comment, r.created, u.username FROM reviews r
             LEFT JOIN users u ON r.user_id=u.id WHERE r.album_id=:album_id ORDER BY r.created"""
@@ -25,7 +29,7 @@ def all_reviews_reversed():
     return db.session.execute(text(sql)).fetchall()
 
 def artist_info(artist_id):
-    sql = "SELECT name, country, year FROM artists WHERE id=:artist_id"
+    sql = "SELECT id, name, country, year FROM artists WHERE id=:artist_id"
     return db.session.execute(text(sql), {"artist_id": artist_id}).fetchone()
 
 def check_artist_name(artist_name):
