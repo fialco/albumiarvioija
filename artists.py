@@ -36,6 +36,10 @@ def album_info(album_id):
             LEFT JOIN reviews r ON a.id=r.album_id WHERE a.id=:album_id GROUP BY a.id"""
     return db.session.execute(text(sql), {"album_id": album_id}).fetchone()
 
+def album_tracks(album_id):
+    sql = "SELECT name, length FROM tracks WHERE album_id=:album_id"
+    return db.session.execute(text(sql), {"album_id": album_id}).fetchall()
+
 def add_review(user_id, album_id, score, comment):
     sql = """INSERT INTO reviews (user_id, album_id, score, comment, created)
              VALUES (:user_id, :album_id, :score, :comment, NOW())"""

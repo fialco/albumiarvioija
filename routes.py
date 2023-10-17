@@ -25,8 +25,9 @@ def album_page(album_id):
     album = artists.album_info(album_id)
     artist = artists.artist_info(album.artist_id)
     reviews = artists.all_reviews_for_album(album_id)
+    tracks = artists.album_tracks(album_id)
     return render_template("album.html", id=album_id, name=album.name, artist_id=album.artist_id,
-                           year=album.year, genre=album.genre , artist_name=artist.name, reviews=reviews, score=album.score)
+                           year=album.year, genre=album.genre , artist_name=artist.name, reviews=reviews, score=album.score, tracks=tracks)
 
 @app.route("/review/", methods=["POST"])
 def review():

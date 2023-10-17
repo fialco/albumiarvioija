@@ -16,7 +16,11 @@
 <hr>
 <a href="/albums/{{ id }}/edit_album">Muokkaa albumin tietoja</a>
 {% endif %}
-
+<div class="tracklist">
+{% for track in tracks %}
+    <p>{{loop.index}}. {{ track.name }} {{ track.length }}</p>
+{% endfor %}
+</div>
 {% if session.user_id %}
 <hr>
 <h3>Kerro mielipiteesi albumista {{ name }}</h3>
