@@ -7,7 +7,7 @@
     <tr>
         <th>Perustamisvuosi/Aktiivisena: {{ year }}</th>
         <th>Kotimaa: {{ country }}</th>
-        <th>Genret:{% for album in albums %} {{ album.genre }}, {% endfor %}</th>
+        <th>Genret:{% for album in albums|unique(attribute="genre") %} {{ album.genre }} | {% endfor %}</th>
     </tr>
 </table>
 
@@ -17,9 +17,7 @@
 <a href="/artists/{{ id }}/edit_artist">Muokkaa artistin tietoja</a>
 {% endif %}
 
-<hr>
 <h3>Albumit</h3>
-<hr>
 
 <table>
     <tr>
@@ -31,9 +29,9 @@
     {% for album in albums %}
     <tr>
         <td><a href="/albums/{{ album.id }}">{{ album.name }}</a></td>
-        <td>{{ album.year }}-</td>
+        <td id="center">{{ album.year }}</td>
         <td>{{ album.genre }}</td>
-        <td>{{ album.score }}/5</td>  
+        <td id="center">{{ "—" if album.score is none else album.score }}/5</td>  
     </tr>
     {% endfor %}
 </table>

@@ -8,18 +8,22 @@
     <tr>
         <th>Julkaisuvuosi: {{ year }}</th>
         <th>Genre: {{ genre }}</th>
-        <th>Arvosana: {{ score }}</th>
+        <th>Arvosana: {{ "—" if score is none else score}}</th>
+        <th>Pituus: {{ tracks | sum(attribute="length")|round(2) }} min</th>
     </tr>
 </table>
 
 {% if (session.user_rank == 1 or session.user_rank == 2) %}
 <hr>
 <a href="/albums/{{ id }}/edit_album">Muokkaa albumin tietoja</a>
+<hr>
 {% endif %}
+<h3>Kappaleet</h3>
+<hr>
 <div class="tracklist">
-{% for track in tracks %}
-    <p>{{loop.index}}. {{ track.name }} {{ track.length }}</p>
-{% endfor %}
+    {% for track in tracks %}
+        <p>{{loop.index}}. {{ track.name }} — {{ track.length }} min</p>
+    {% endfor %}
 </div>
 {% if session.user_id %}
 <hr>

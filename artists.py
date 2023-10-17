@@ -2,8 +2,9 @@ from sqlalchemy.sql import text
 from db import db
 
 def all_artist_info():
-    sql = """SELECT a.id, a.name, a.country, a.year, COUNT(b.id) AS album_count FROM artists a
-            LEFT JOIN albums b ON a.id=b.artist_id GROUP BY a.id ORDER BY name"""
+    sql = """SELECT a.id, a.name, a.country, a.year, COUNT(distinct b.id) AS album_count, COUNT(distinct t.id) AS track_count FROM artists a
+            LEFT JOIN albums b ON a.id=b.artist_id
+            LEFT JOIN tracks t ON a.id=t.artist_id GROUP BY a.id ORDER BY a.name"""
     return db.session.execute(text(sql)).fetchall()
 
 def all_albums_from_artist(artist_id):

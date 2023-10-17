@@ -8,8 +8,8 @@ body {
 .form {
     margin-top: -5em;
     display: flex;
-    justify-content: center; /* center horizontally */
-    align-items: center; /* center vertically */
+    justify-content: center;
+    align-items: center;
 }
 
 .trackform {
@@ -20,13 +20,16 @@ body {
 }
 
 .tracklist {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    columns: 2;
 }
 
 #login {
     margin-top: 20px;
 
+}
+
+#center {
+    text-align: center;
 }
 
 table, th, td {
