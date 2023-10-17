@@ -17,8 +17,12 @@ def check_name(artist_id, name):
     sql = "SELECT LOWER(name) FROM albums WHERE artist_id=:artist_id AND LOWER(name)=LOWER(:name)"
     return db.session.execute(text(sql), {"artist_id": artist_id, "name": name}).fetchone()
 
+def check_review(album_id, user_id):
+    sql = "SELECT id FROM reviews WHERE album_id=:album_id AND user_id=:user_id"
+    return db.session.execute(text(sql), {"album_id": album_id, "user_id": user_id}).fetchone()
+
 def all_reviews_for_album(album_id):
-    sql = """SELECT r.id AS review_id, r.score, r.comment, r.created, u.username FROM reviews r
+    sql = """SELECT r.id AS review_id, r.score, r.comment, r.created, r.user_id, u.username FROM reviews r
             LEFT JOIN users u ON r.user_id=u.id WHERE r.album_id=:album_id ORDER BY r.created"""
     return db.session.execute(text(sql), {"album_id": album_id}).fetchall()
 
@@ -52,10 +56,15 @@ def add_review(user_id, album_id, score, comment):
                                    "score":score, "comment":comment})
     db.session.commit()
 
-def remove_rev(id):
+def remove_review(id):
     sql = "DELETE FROM reviews WHERE id=:id"
     db.session.execute(text(sql), {"id": id})
     db.session.commit()
+
+def album_by_review(id):
+    sql = "SELECT album_id FROM reviews WHERE id=:id"
+    db.session.execute(text(sql), {"id": id})
+    return db.session.execute(text(sql), {"id": id}).fetchone()
 
 def add_artist(name, country, year):
     sql = """INSERT INTO artists (name, country, year)

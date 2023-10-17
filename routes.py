@@ -45,15 +45,19 @@ def review():
     if comment == "":
         return render_template("error.html", message="Kommenttikenttä on tyhjä")
 
+    if artists.check_review(album_id, users.user_id()):
+        return render_template("error.html", message="Olet jo kirjoittanut albumille arvion. Poista vanha jos haluat kirjoittaa uuden.")
+
     artists.add_review(users.user_id(), album_id, score, comment)
     return redirect("/albums/"+str(album_id))
 
 @app.route("/remove_rev/", methods=["POST"])
-def remove_rev():
+def remove_review():
     users.check_csrf()
     review_id = request.form["review_id"]
-    artists.remove_rev(review_id)
-    return redirect("/browse")
+    album_id = artists.album_by_review(review_id)
+    artists.remove_review(review_id)
+    return redirect("/albums/"+str(album_id[0]))
 
 @app.route("/add_artist", methods=["GET", "POST"])
 def add_artist():
