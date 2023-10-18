@@ -23,6 +23,10 @@ body {
     columns: 2;
 }
 
+#trackname {
+    margin-right: 5px;
+}
+
 #login {
     margin-top: 20px;
 

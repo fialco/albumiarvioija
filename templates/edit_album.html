@@ -5,17 +5,34 @@
 <h2>Muokkaa albumin {{ name }} tietoja</h2>
 
 <form action="/albums/{{ id }}/edit_album" method="post">
-Albumin nimi: <br><input type="text" name="album_name" value="{{ name }}" size="50" minlength="1" maxlength="50" required>
-<p>
-Genre: <br><input type="text" name="genre" value="{{ genre }}" size="50" minlength="1" maxlength="50" required>
-<p>
-Julkaisuvuosi: <br><input type="number" name="year" value={{ year }} size="6" min={{ artist_year }} max="2023" required>
-<p>
-<input type="submit" value="Vahvista muutokset">
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <div>
+        Albumin nimi: <br><input type="text" name="album_name" value="{{ name }}" size="50" minlength="1" maxlength="50" required>
+        <p>
+        Genre: <br><input type="text" name="genre" size="50" value="{{ genre }}" minlength="1" maxlength="50" required>
+        <p>
+        Julkaisuvuosi: <br><input type="number" name="year" value={{ year }} size="6" min={{ artist_year }} max="2023" required>
+    </div>
+    <div>
+        <input type="submit" value="Vahvista muutokset">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <p>
+        <a href="/artists/{{ artist_id }}">Palaa artistiin</a>
+    </div>
+
+    <div id="trackform" class="trackform">
+        {% for track in tracks %}
+            <input id="trackname" type="text" name="track_name" size="60" minlength="1" maxlength="60" value="{{ track.name }}" required><input type="float" name="track_length" size="10" value="{{ track.length }}" required>
+        {% endfor %}
+    </div>
 </form>
 
-<a href="/browse">Palaa artisteihin</a>
+<div class="trackform">
+    <button onclick="add()">Add</button>
+    <button onclick="remove()">Remove</button>
+</div>
+
+<script src="{{url_for('static', filename='script.js')}}"></script>
+
 {% else %}
 <p>
 <h2>PÄÄSY KIELLETTY</h2>

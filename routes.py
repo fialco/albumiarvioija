@@ -83,6 +83,33 @@ def add_artist():
         artists.add_artist(artist_name, country, year)
         return redirect("/browse")
 
+@app.route("/artists/<int:artist_id>/edit_artist", methods=["GET", "POST"])
+def edit_artist(artist_id):
+    if request.method == "GET":
+        artist = artists.artist_info(artist_id)
+        return render_template("edit_artist.html", id=artist_id, name=artist.name,
+                           year=artist.year, country=artist.country)
+
+    if request.method == "POST":
+        users.check_csrf()
+        artist = artists.artist_info(artist_id)
+        artist_name = request.form["artist_name"]
+        if len(artist_name) < 1 or 50 < len(artist_name):
+            return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
+        if artists.check_artist_name(artist_name) and artist_name != artist.name:
+            return render_template("error.html", message=artist_name +" niminen artisti on jo tietokannassa")
+
+        country = request.form["country"]
+        if len(country) < 1 or 56 < len(country):
+            return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
+
+        year = request.form["year"]
+        if int(year) < 1940 or 2023 < int(year):
+            return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
+
+        artists.edit_artist(artist_id, artist_name, country, year)
+        return redirect("/artists/"+str(artist_id))
+
 @app.route("/artists/<int:artist_id>/add_album", methods=["GET", "POST"])
 def add_album(artist_id):
     if request.method == "GET":
@@ -119,45 +146,22 @@ def add_album(artist_id):
 
         return redirect("/artists/"+str(artist_id))
 
-@app.route("/artists/<int:artist_id>/edit_artist", methods=["GET", "POST"])
-def edit_artist(artist_id):
-    if request.method == "GET":
-        artist = artists.artist_info(artist_id)
-        return render_template("edit_artist.html", id=artist_id, name=artist.name,
-                           year=artist.year, country=artist.country)
-
-    if request.method == "POST":
-        users.check_csrf()
-        artist = artists.artist_info(artist_id)
-        artist_name = request.form["artist_name"]
-        if len(artist_name) < 1 or 50 < len(artist_name):
-            return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
-        if artists.check_artist_name(artist_name) and artist_name != artist.name:
-            return render_template("error.html", message=artist_name +" niminen artisti on jo tietokannassa")
-
-        country = request.form["country"]
-        if len(country) < 1 or 56 < len(country):
-            return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
-
-        year = request.form["year"]
-        if int(year) < 1940 or 2023 < int(year):
-            return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
-
-        artists.edit_artist(artist_id, artist_name, country, year)
-        return redirect("/artists/"+str(artist_id))
-
 @app.route("/albums/<int:album_id>/edit_album", methods=["GET", "POST"])
 def edit_album(album_id):
     if request.method == "GET":
         album = artists.album_info(album_id)
         artist = artists.artist_info(album.artist_id)
+        tracks = artists.album_tracks(album_id)
         return render_template("edit_album.html", id=album_id, name=album.name,
-                           year=album.year, genre=album.genre, artist_year=artist.year)
+                           year=album.year, genre=album.genre, artist_year=artist.year, tracks=tracks)
 
     if request.method == "POST":
         users.check_csrf()
+
         album = artists.album_info(album_id)
         artist = artists.artist_info(album.artist_id)
+        tracks = artists.album_tracks(album_id)
+
         album_name = request.form["album_name"]
         name_check = artists.check_name(artist.id, album_name)
         if len(album_name) < 1 or 50 < len(album_name):
@@ -175,7 +179,14 @@ def edit_album(album_id):
         if len(genre) < 1 or 56 < len(genre):
             return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
 
+        track_name = request.form.getlist("track_name")
+        track_length = request.form.getlist("track_length")
+
         artists.edit_album(album_id, album_name, year, genre)
+
+        for i in range(len(track_name)):       
+            artists.edit_tracks(tracks[i].id, track_name[i], track_length[i])
+
         return redirect("/albums/"+str(album_id))
 
 @app.route("/search")

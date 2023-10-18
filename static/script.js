@@ -2,9 +2,12 @@ var trackform = document.getElementById("trackform");
 
 function add(){
   var newField = document.createElement("input");
+  newField.setAttribute("id","trackname");
   newField.setAttribute("type","text");
   newField.setAttribute("name","track_name");
-  newField.setAttribute("size",50);
+  newField.setAttribute("size",60);
+  newField.setAttribute("minsize",1);
+  newField.setAttribute("maxsize",60);
   newField.setAttribute("placeholder","Kappaleen nimi");
   newField.setAttribute("required","");
   trackform.appendChild(newField);
@@ -13,7 +16,7 @@ function add(){
   newField.setAttribute("type","float");
   newField.setAttribute("name","track_length");
   newField.setAttribute("size",10);
-  newField.setAttribute("placeholder","Pituus");
+  newField.setAttribute("placeholder","Pituus (X.XX)");
   newField.setAttribute("required","");
   trackform.appendChild(newField);
 }
