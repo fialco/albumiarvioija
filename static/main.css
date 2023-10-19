@@ -27,6 +27,16 @@ body {
     margin-right: 5px;
 }
 
+#delete_button {
+    background-color: black;
+    color: red;
+    margin-left: 22em;
+    margin-top: 13em;
+    font-weight: bold;
+    position: absolute;
+
+}
+
 #login {
     margin-top: 20px;
 

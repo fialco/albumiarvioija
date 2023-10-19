@@ -189,6 +189,14 @@ def edit_album(album_id):
 
         return redirect("/albums/"+str(album_id))
 
+@app.route("/albums/<int:album_id>/delete_album", methods=["POST"])
+def delete_album(album_id):
+    album = artists.album_info(album_id)
+    artists.delete_album(album_id)
+    artists.delete_tracks(album_id)
+    artists.delete_reviews(album_id)
+    return redirect("/artists/"+str(album.artist_id))
+
 @app.route("/search")
 def search():
         query = request.args["query"]

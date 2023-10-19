@@ -21,6 +21,7 @@ def check_review(album_id, user_id):
     sql = "SELECT id FROM reviews WHERE album_id=:album_id AND user_id=:user_id"
     return db.session.execute(text(sql), {"album_id": album_id, "user_id": user_id}).fetchone()
 
+
 def all_reviews_for_album(album_id):
     sql = """SELECT r.id AS review_id, r.score, r.comment, r.created, r.user_id, u.username FROM reviews r
             LEFT JOIN users u ON r.user_id=u.id WHERE r.album_id=:album_id ORDER BY r.created"""
@@ -31,6 +32,7 @@ def all_reviews_reversed():
             LEFT JOIN albums a ON r.album_id=a.id
             LEFT JOIN users u ON r.user_id=u.id ORDER BY r.created DESC LIMIT 8"""
     return db.session.execute(text(sql)).fetchall()
+
 
 def artist_info(artist_id):
     sql = "SELECT id, name, country, year FROM artists WHERE id=:artist_id"
@@ -49,6 +51,7 @@ def album_tracks(album_id):
     sql = "SELECT id, artist_id, album_id, name, length FROM tracks WHERE album_id=:album_id"
     return db.session.execute(text(sql), {"album_id": album_id}).fetchall()
 
+
 def add_review(user_id, album_id, score, comment):
     sql = """INSERT INTO reviews (user_id, album_id, score, comment, created)
              VALUES (:user_id, :album_id, :score, :comment, NOW())"""
@@ -61,10 +64,16 @@ def remove_review(id):
     db.session.execute(text(sql), {"id": id})
     db.session.commit()
 
+def delete_reviews(album_id):
+    sql = "DELETE FROM reviews WHERE album_id=:album_id"
+    db.session.execute(text(sql), {"album_id": album_id})
+    db.session.commit()
+
 def album_by_review(id):
     sql = "SELECT album_id FROM reviews WHERE id=:id"
     db.session.execute(text(sql), {"id": id})
     return db.session.execute(text(sql), {"id": id}).fetchone()
+
 
 def add_artist(name, country, year):
     sql = """INSERT INTO artists (name, country, year)
@@ -79,6 +88,7 @@ def edit_artist(id, name, country, year):
     db.session.execute(text(sql), {"id":id, "name":name,
     "country":country, "year":year})
     db.session.commit()
+
 
 def add_album(name, artist_id, year, genre):
     sql = """INSERT INTO albums (name, artist_id, year, genre)
@@ -95,6 +105,12 @@ def edit_album(id, name, year, genre):
     "year":year, "genre":genre})
     db.session.commit()
 
+def delete_album(id):
+    sql = "DELETE FROM albums WHERE id=:id"
+    db.session.execute(text(sql), {"id": id})
+    db.session.commit()
+
+
 def add_tracks(artist_id, album_id, name, length):
     sql = """INSERT INTO tracks (artist_id, album_id, name, length)
             VALUES (:artist_id, :album_id, :name, :length)"""
@@ -107,6 +123,12 @@ def edit_tracks(id, name, length):
             (:name, :length) WHERE id=:id"""
     db.session.execute(text(sql), {"id":id, "name":name, "length":length})
     db.session.commit()
+
+def delete_tracks(album_id):
+    sql = "DELETE FROM tracks WHERE album_id=:album_id"
+    db.session.execute(text(sql), {"album_id": album_id})
+    db.session.commit()
+
 
 def search(query):
     sql = """SELECT a.id AS artist_id, a.name AS artist, b.id AS album_id, b.name AS album FROM artists a

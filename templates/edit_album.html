@@ -4,6 +4,11 @@
 
 <h2>Muokkaa albumin {{ name }} tietoja</h2>
 
+<form action="/albums/{{ id }}/delete_album" method="post">
+    <input id="delete_button" type="submit" onclick="return confirm('HUOM! Albumin poistaminen tyhjentää tietokannasta myös siihen liittyvät arviot ja kappaleet. Haluatko varmasti poistaa albumin?')" value="Poista albumi">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
 <form action="/albums/{{ id }}/edit_album" method="post">
     <div>
         Albumin nimi: <br><input type="text" name="album_name" value="{{ name }}" size="50" minlength="1" maxlength="50" required>
@@ -27,8 +32,8 @@
 </form>
 
 <div class="trackform">
-    <button onclick="add()">Add</button>
-    <button onclick="remove()">Remove</button>
+    <button onclick="add()">Lisää</button>
+    <button onclick="remove()">Poista</button>
 </div>
 
 <script src="{{url_for('static', filename='script.js')}}"></script>
