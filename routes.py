@@ -197,8 +197,16 @@ def edit_album(album_id):
 
         artists.edit_album(album_id, album_name, year, genre)
 
-        for i in range(len(track_name)):       
-            artists.edit_tracks(tracks[i].id, track_name[i], track_length[i])
+        #Tracks are updated
+        if len(track_name) == len(tracks):
+            print("kel")
+            for i in range(len(track_name)):       
+                artists.edit_tracks(tracks[i].id, track_name[i], track_length[i])
+        #If track amount differs after editing, tracks are deleted and added again
+        else:
+            artists.delete_tracks(album_id)
+            for i in range(len(track_name)):       
+                artists.add_tracks(artist.id, album_id, track_name[i], track_length[i])
 
         return redirect("/albums/"+str(album_id))
 
