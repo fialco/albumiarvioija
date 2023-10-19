@@ -110,6 +110,19 @@ def edit_artist(artist_id):
         artists.edit_artist(artist_id, artist_name, country, year)
         return redirect("/artists/"+str(artist_id))
 
+@app.route("/artists/<int:artist_id>/delete_artist", methods=["POST"])
+def delete_artist(artist_id):
+    albums = artists.all_albums_from_artist(artist_id)
+    
+    for album in albums:
+        artists.delete_tracks(album.id)
+        artists.delete_reviews(album.id)
+
+    artists.delete_albums(artist_id)
+    artists.delete_artist(artist_id)
+    
+    return redirect("/browse")
+
 @app.route("/artists/<int:artist_id>/add_album", methods=["GET", "POST"])
 def add_album(artist_id):
     if request.method == "GET":

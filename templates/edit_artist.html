@@ -4,6 +4,11 @@
 
 <h2>Muokkaa artistin {{ name }} tietoja</h2>
 
+<form action="/artists/{{ id }}/delete_artist" method="post">
+    <input id="delete_button" type="submit" onclick="return confirm('HUOM! Artistin poistaminen tyhjentää tietokannasta myös siihen liittyvät albumit, arviot ja kappaleet. Haluatko varmasti poistaa artistin?')" value="Poista artisti">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
 <form action="/artists/{{ id }}/edit_artist" method="post">
 Artistin nimi: <br><input type="text" name="artist_name" value="{{ name }}" size="50" minlength="1" maxlength="50" required>
 <p>

@@ -89,6 +89,11 @@ def edit_artist(id, name, country, year):
     "country":country, "year":year})
     db.session.commit()
 
+def delete_artist(id):
+    sql = "DELETE FROM artists WHERE id=:id"
+    db.session.execute(text(sql), {"id": id})
+    db.session.commit()
+
 
 def add_album(name, artist_id, year, genre):
     sql = """INSERT INTO albums (name, artist_id, year, genre)
@@ -108,6 +113,11 @@ def edit_album(id, name, year, genre):
 def delete_album(id):
     sql = "DELETE FROM albums WHERE id=:id"
     db.session.execute(text(sql), {"id": id})
+    db.session.commit()
+
+def delete_albums(artist_id):
+    sql = "DELETE FROM albums WHERE artist_id=:artist_id"
+    db.session.execute(text(sql), {"artist_id": artist_id})
     db.session.commit()
 
 
