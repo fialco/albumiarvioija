@@ -20,7 +20,7 @@
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
-<a href="/browse">Palaa artisteihin</a>
+<a href="/artists/{{ id }}">Palaa artistiin</a>
 {% else %}
     <p>
     <h2>PÄÄSY KIELLETTY</h2>
