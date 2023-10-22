@@ -1,17 +1,16 @@
 # Albmiarvioija
 ## TKT20019 - Tietokannat ja web-ohjelmointi projekti
-* Käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
-* Käyttäjä näkee etusivulla viimeisimpiä annettuja arvosteluja albumeille ja arvion lähetysajan.
-* Käyttäjä voi etsiä artistia tai albumia hakupalkilla ja selata niitä listoittain.
-* Artisteilla on omat sivunsa josta löytyy lista albumeista ja yleistä infoa (kotimaa, perustusvuosi/aktiivisena, genre yms).
-* Albumeilla on omat sivunsa jossa lista kaikista arvosteluista, arvioiden keskiarvo ja yleistä infoa.
-* Käyttäjä voi lisätä, muokata ja poistaa omia arvioitaan albumista.
-* Luotettu käyttäjä voi lisätä sekä muokata artistien ja albumien tietoja. 
-* Ylläpitäjä voi lisätä sekä muokata artistien ja albumien tietoja
-* Ylläpitäjä voi poistaa käyttäjien arvosteluja.
-## Tulossa
-* Ohjelman ulkoasun parannus
-* Mahdollisien bugien liiskaus ja koodin siivous
+Ohjelman ideana on sivusto jossa on tietoa artisteista, heidän albumeista ja kyseisten albumien arvostelusta.
+* Yleistä
+  * Artisteilla on omat sivunsa josta löytyy lista albumeista ja yleistä infoa (kotimaa, perustusvuosi/aktiivisena, genre yms).
+  * Albumeilla on omat sivunsa jossa lista kaikista arvosteluista, arvioiden keskiarvo ja yleistä infoa.
+  * Voi etsiä artistia tai albumia hakupalkilla ja selata niitä listoittain.
+  * Etusivulla näkyy viimeisimpiä annettuja arvosteluja albumeille.
+* Käyttäjät
+  * Voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
+  * Voi lisätä ja poistaa oman arvion albumista
+  * Luotettu käyttäjä ja ylläpitäjä voi lisätä, poistaa ja muokata artistien ja albumien tietoja.
+  * Ylläpitäjä voi poistaa käyttäjien arvosteluja.
 ## Kuinka käyttää ohjelmaa
 Kloonaa repositorio koneellesi ja siirry juurikansioon. Luo kansioon .env-tiedosto ja määritä sisältö seuraavanlaiseksi:
 ```
@@ -21,7 +20,7 @@ SECRET_KEY=<salainen-avain>
 Aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
 ```
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate (source venv\Scripts\activate Windowsilla)
 pip install -r ./requirements.txt
 ```
 Käynnistä postgersql tietokanta ja määritä tietokannan skeema komennolla
