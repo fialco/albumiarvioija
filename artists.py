@@ -127,14 +127,14 @@ def delete_albums(artist_id):
 
 def add_tracks(artist_id, album_id, name, length):
     sql = """INSERT INTO tracks (artist_id, album_id, name, length)
-            VALUES (:artist_id, :album_id, :name, :length)"""
+            VALUES (:artist_id, :album_id, :name, ROUND(:length, 2))"""
     db.session.execute(text(sql), {"artist_id":artist_id, "album_id":album_id,
                                 "name":name, "length":length})
     db.session.commit()
 
 def edit_tracks(id, name, length):
     sql = """UPDATE tracks SET (name, length) =
-            (:name, :length) WHERE id=:id"""
+            (:name, ROUND(:length, 2)) WHERE id=:id"""
     db.session.execute(text(sql), {"id":id, "name":name, "length":length})
     db.session.commit()
 

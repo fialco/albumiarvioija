@@ -23,7 +23,7 @@
 <hr>
 <div class="tracklist">
     {% for track in tracks %}
-        <p>{{loop.index}}. {{ track.name }} — {{ track.length }} min</p>
+        <p>{{loop.index}}. {{ track.name }} — {{ "%.2f"|format(track.length) }} min</p>
     {% endfor %}
 </div>
 

@@ -10,8 +10,6 @@
 * Ylläpitäjä voi lisätä sekä muokata artistien ja albumien tietoja
 * Ylläpitäjä voi poistaa käyttäjien arvosteluja.
 ## Tulossa
-* Artistien ja albumien poisto
-* Albumeiden kappaleiden muokkaus
 * Ohjelman ulkoasun parannus
 * Mahdollisien bugien liiskaus ja koodin siivous
 ## Kuinka käyttää ohjelmaa
@@ -29,6 +27,10 @@ pip install -r ./requirements.txt
 Käynnistä postgersql tietokanta ja määritä tietokannan skeema komennolla
 ```
 psql < schema.sql
+```
+Voit lisätä artisteja ja albumeita joko itse tai ajaa testausta varten (lisääminen saattaa kestää hetken)
+```
+psql < example.sql
 ```
 Tarvittaessa koko tietokannan voi tyhjentää ja alustaa komennoilla psql:llä
 ```

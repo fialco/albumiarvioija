@@ -156,6 +156,11 @@ def add_album(artist_id):
         track_name = request.form.getlist("track_name")
         track_length = request.form.getlist("track_length")
 
+        try:
+            for i in track_length:
+                float(i)
+        except:
+            return render_template("error.html", message="Kappaleiden pituudet eivät kelpaa")
         album_id = artists.add_album(album_name, artist_id, year, genre)
 
         for i in range(len(track_name)):       
@@ -198,6 +203,12 @@ def edit_album(album_id):
 
         track_name = request.form.getlist("track_name")
         track_length = request.form.getlist("track_length")
+
+        try:
+            for i in track_length:
+                float(i)
+        except:
+            return render_template("error.html", message="Kappaleiden pituudet eivät kelpaa")
 
         artists.edit_album(album_id, album_name, year, genre)
 
