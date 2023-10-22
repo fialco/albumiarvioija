@@ -23,6 +23,12 @@ body {
     columns: 2;
 }
 
+.review {
+    font-weight: bold;
+    padding: 5px 0px 15px 0px;
+    font-size: 17px
+}
+
 #trackname {
     margin-right: 5px;
 }
@@ -44,6 +50,13 @@ body {
 
 #center {
     text-align: center;
+}
+
+#error{
+    font-weight: bold;
+    margin-top: 3em;
+    font-size: 20px;
+    text-decoration: underline; 
 }
 
 table, th, td {

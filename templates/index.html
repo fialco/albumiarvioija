@@ -7,12 +7,19 @@
 <hr>
 {% for review in reviews %} 
 <ul>
-    <li><td><a href="/albums/{{ review.id }}">{{ review.name }}</a></td> {{ review.username }} 
-    {{ review.score }}/5 {{ review.created.strftime("%d-%m-%Y %H:%M:%S") }} 
-    <p>
-    {{ review.comment }}
-    <hr></li>
+    <li>
+        <div 
+            class="review"><a href="/albums/{{ review.id }}">{{ review.name }}</a> {{ review.username }}  {{ review.created.strftime("%d-%m-%Y %H:%M:%S") }}
+        </div>
+        <p>
+        {{ review.comment }}
+        <p>
+        <div class="review">{{ review.score }}/5</div>
+    <hr>
+    </li>
 </ul>
 {% endfor %}
 
 {% endblock %}
+
+<a href="/albums/{{ review.id }}">{{ review.name }}</a>

@@ -32,37 +32,43 @@
 <h3>Kerro mielipiteesi albumista {{ name }}</h3>
 
 <form action="/review/" method="post">
-Kommentti:<br>
-<textarea name="comment" rows="3" cols="158" minlength="1" maxlength="500"></textarea>
-<p>
-Arvosana:
-<select name="score">
-<option value="1">1
-<option value="2">2
-<option value="3">3
-<option value="4">4
-<option value="5">5
-</select>
-<p><input type="submit" value="Lähetä">
-<input type="hidden" name="album_id" value="{{ id }}">
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    Kommentti:<br>
+    <textarea name="comment" rows="3" cols="158" minlength="1" maxlength="1000"></textarea>
+    <p>
+    Arvosana:
+    <select name="score">
+    <option value="1">1
+    <option value="2">2
+    <option value="3">3
+    <option value="4">4
+    <option value="5">5
+    </select>
+    <p><input type="submit" value="Lähetä">
+    <input type="hidden" name="album_id" value="{{ id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% endif %}
 
 <hr>
 {% for review in reviews %}
 <ul>
-    <li>{{ review.username }} {{ review.score }}/5 {{ review.created.strftime("%d-%m-%Y %H:%M:%S") }}
-    <p>
-    {{ review.comment }}
-    {% if session.user_rank == 1 or session.user_id == review.user_id %}
-    <form action="/remove_rev/" method="post">
-        <p><input type="submit" value="Poista kommentti">
-        <input type="hidden" name="review_id" value="{{ review.review_id }}">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
-    {% endif %}
-    <hr></li>
+    <li>
+        <div 
+            class="review"><a href="/albums/{{ review.id }}">{{ review.name }}</a> {{ review.username }}  {{ review.created.strftime("%d-%m-%Y %H:%M:%S") }}
+        </div>
+        <p>
+        {{ review.comment }}
+        <p>
+        <div class="review">{{ review.score }}/5</div>
+        {% if session.user_rank == 1 or session.user_id == review.user_id %}
+        <form action="/remove_rev/" method="post">
+            <p><input type="submit" value="Poista kommentti">
+            <input type="hidden" name="review_id" value="{{ review.review_id }}">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        </form>
+        {% endif %}
+    <hr>
+    </li>
 </ul>
 {% endfor %}
 
