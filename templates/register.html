@@ -4,21 +4,21 @@
 <h2>Rekisteröinti</h2>
 
 <form action="/register" method="post">
-Tunnus: <br><input type="text" name="username" minlength="1" maxlength="20" required>
-<p>
-Salasana: <br><input type="password" name="password1" required>
-<p>
-Salasana uudestaan: <br><input type="password" name="password2" required>
-<p>
-Käyttäjärooli:
-<select name="rank">
-<option value=1> ylläpitäjä
-<option value=2> luotettu käyttäjä
-<option value=3> käyttäjä
-</select>
-<p>
-<input type="submit" value="Luo tunnus">
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    Tunnus: <br><input type="text" name="username" minlength="1" maxlength="20" required>
+    <p>
+    Salasana: <br><input type="password" name="password1" required>
+    <p>
+    Salasana uudestaan: <br><input type="password" name="password2" required>
+    <p>
+    Käyttäjärooli:
+    <select name="rank">
+    <option value=1> ylläpitäjä
+    <option value=2> luotettu käyttäjä
+    <option value=3> käyttäjä
+    </select>
+    <p>
+    <input type="submit" value="Luo tunnus">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 <a href="/">Palaa takaisin</a>

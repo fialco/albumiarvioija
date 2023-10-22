@@ -5,22 +5,21 @@
 <h2>Lisää uusi artisti</h2>
 
 <form action="/add_artist" method="post">
-Artistin nimi: <br><input type="text" name="artist_name" size="50" minlength="1" maxlength="50" required>
-<p>
-Kotimaa: <br><input type="text" name="country" size="50" minlength="1" maxlength="56" required>
-<p>
-Perustamisvuosi/aktiivisena: <br><input type="number" name="year" size="6" min="1940" max="2023" required>
-<p>
-<input type="submit" value="Lisää artisti">
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    Artistin nimi: <br><input type="text" name="artist_name" size="50" minlength="1" maxlength="50" required>
+    <p>
+    Kotimaa: <br><input type="text" name="country" size="50" minlength="1" maxlength="56" required>
+    <p>
+    Perustamisvuosi/aktiivisena: <br><input type="number" name="year" size="6" min="1940" max="2023" required>
+    <p>
+    <input type="submit" value="Lisää artisti">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 <a href="/browse">Palaa artisteihin</a>
 {% else %}
-<p>
-<h2>PÄÄSY KIELLETTY</h2>
-<p>
-<a href="/browse">Walk of shame (Palaa artisteihin)</a>
-
+    <p>
+    <h2>PÄÄSY KIELLETTY</h2>
+    <p>
+    <a href="/browse">Walk of shame (Palaa artisteihin)</a>
 {% endif %}
 {% endblock %}

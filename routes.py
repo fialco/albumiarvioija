@@ -33,10 +33,10 @@ def album_page(album_id):
 @app.route("/review/", methods=["POST"])
 def review():
     users.check_csrf()
-    album_id = request.form["album_id"]
 
+    album_id = request.form["album_id"]
     score = int(request.form["score"])
-    if score < 1 or 5 < score:
+    if 1 > score > 5:
         return render_template("error.html", message="Pistemäärä ei kelpaa")
 
     comment = request.form["comment"]
@@ -66,18 +66,19 @@ def add_artist():
 
     if request.method == "POST":
         users.check_csrf()
+
         artist_name = request.form["artist_name"]
-        if len(artist_name) < 1 or 50 < len(artist_name):
+        if 1 > len(artist_name) > 50:
             return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
         if artists.check_artist_name(artist_name):
             return render_template("error.html", message=artist_name +" niminen artisti on jo tietokannassa")
 
         country = request.form["country"]
-        if len(country) < 1 or 56 < len(country):
+        if 1 > len(country) > 56:
             return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
 
         year = request.form["year"]
-        if int(year) < 1940 or 2023 < int(year):
+        if 1940 > int(year) > 2023:
             return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
 
         artists.add_artist(artist_name, country, year)
@@ -92,19 +93,20 @@ def edit_artist(artist_id):
 
     if request.method == "POST":
         users.check_csrf()
+
         artist = artists.artist_info(artist_id)
         artist_name = request.form["artist_name"]
-        if len(artist_name) < 1 or 50 < len(artist_name):
+        if 1 > len(artist_name) > 50:
             return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
         if artists.check_artist_name(artist_name) and artist_name != artist.name:
             return render_template("error.html", message=artist_name +" niminen artisti on jo tietokannassa")
 
         country = request.form["country"]
-        if len(country) < 1 or 56 < len(country):
+        if 1 > len(country) > 56:
             return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
 
         year = request.form["year"]
-        if int(year) < 1940 or 2023 < int(year):
+        if 1940 > int(year) > 2023:
             return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
 
         artists.edit_artist(artist_id, artist_name, country, year)
@@ -112,6 +114,7 @@ def edit_artist(artist_id):
 
 @app.route("/artists/<int:artist_id>/delete_artist", methods=["POST"])
 def delete_artist(artist_id):
+    users.check_csrf()
     albums = artists.all_albums_from_artist(artist_id)
     
     for album in albums:
@@ -133,20 +136,21 @@ def add_album(artist_id):
 
     if request.method == "POST":
         users.check_csrf()
+
         album_name = request.form["album_name"]
         name_check = artists.check_name(artist_id, album_name)
-        if len(album_name) < 1 or 50 < len(album_name):
+        if 1 > len(album_name) > 50:
             return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
 
         if name_check:
             return render_template("error.html", message="Artistilla on jo saman niminen albumi tietokannassa")
 
         year = request.form["year"]
-        if int(year) < 1940 or 2023 < int(year):
+        if 1940 > int(year) > 2023:
             return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
 
         genre = request.form["genre"]
-        if len(genre) < 1 or 50 < len(genre):
+        if 1 > len(genre) > 50:
             return render_template("error.html", message="Genren tulisi olla 1-50 merkin välillä")
 
         track_name = request.form.getlist("track_name")
@@ -177,7 +181,7 @@ def edit_album(album_id):
 
         album_name = request.form["album_name"]
         name_check = artists.check_name(artist.id, album_name)
-        if len(album_name) < 1 or 50 < len(album_name):
+        if 1 > len(album_name) > 50:
             return render_template("error.html", message="Nimen tulisi olla 1-50 merkin välillä")
 
         if name_check:
@@ -185,11 +189,11 @@ def edit_album(album_id):
                 return render_template("error.html", message="Artistilla on jo saman niminen albumi tietokannassa")
 
         year = request.form["year"]
-        if int(year) < 1940 or 2023 < int(year):
+        if 1940 > int(year) > 2023:
             return render_template("error.html", message="Vuoden tulisi olla 1940-2023 välillä")
 
         genre = request.form["genre"]
-        if len(genre) < 1 or 56 < len(genre):
+        if 1 > len(genre) > 50:
             return render_template("error.html", message="Kotimaan tulisi olla 1-56 merkin välillä")
 
         track_name = request.form.getlist("track_name")
@@ -212,6 +216,8 @@ def edit_album(album_id):
 
 @app.route("/albums/<int:album_id>/delete_album", methods=["POST"])
 def delete_album(album_id):
+    users.check_csrf()
+    
     album = artists.album_info(album_id)
     artists.delete_album(album_id)
     artists.delete_tracks(album_id)
@@ -231,6 +237,7 @@ def login():
 
     if request.method == "POST":
         users.check_csrf()
+
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username, password):
@@ -246,7 +253,7 @@ def register():
     if request.method == "POST":
 
         username = request.form["username"]
-        if len(username) < 1 or 20 < len(username):
+        if 1 > len(username) > 20:
             return render_template("error.html", message="Käyttäjätunnuksen tulisi olla 1-20 merkin välillä")
 
         password1 = request.form["password1"]
