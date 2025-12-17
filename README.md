@@ -12,7 +12,9 @@ Ohjelman ideana on sivusto jossa on tietoa artisteista, heidän albumeista ja ky
   * Luotettu käyttäjä ja ylläpitäjä voi lisätä, poistaa ja muokata artistien ja albumien tietoja.
   * Ylläpitäjä voi poistaa käyttäjien arvosteluja.
 ## Kuinka käyttää ohjelmaa
-Varmista että sinulla on Docker asennettuna. Kloonaa repositorio koneellesi ja siirry juurikansioon. Luo kansioon .env-tiedosto ja määritä sisältö.
+Varmista että sinulla on Docker asennettuna! 
+
+Kloonaa repositorio koneellesi ja siirry juurikansioon. Luo kansioon .env-tiedosto ja määritä sisältö.
 Käyttäjän nimen, salasanan ja tietokannan nimen voi valita itse. Luo SECRET_KEY esimerkiksi pythonin secrets moduulin token_hex(16):lla.
 ```
 POSTGRES_USER=albumiarvioija
@@ -21,7 +23,7 @@ POSTGRES_DB=albums-db
 DATABASE_URL=postgresql://albumiarvioija:albums@db:5432/albums-db
 SECRET_KEY=<salainen-avain>
 ```
-Rakenna ohelma ajamalla:
+Asenna ohjelma ajamalla:
 
 ```
 docker compose build
@@ -31,8 +33,11 @@ Ohjelma käynnistettän ajamalla:
 ```
 docker compose up
 ```
-Voit lisätä artisteja ja albumeita joko itse tai ajaa testausta varten (lisääminen kestää hetken). Psql parametrit
-ovat samat mitä .env tiedostoon on määritelty.
+Ohjelmaa pääsee nyt käyttämään osoitteen http://localhost:5001 kautta.
+
+
+Voit testausta varten täyttää tietokannan esimerkkidatalla. Psql parametrit
+ovat samat mitä .env tiedostoon on määritelty (lisääminen kestää hetken).
 ```
 psql -U albumiarvioija -h localhost -p 5432 -d albums-db < example.sql
 ```
