@@ -12,31 +12,27 @@ Ohjelman ideana on sivusto jossa on tietoa artisteista, heidän albumeista ja ky
   * Luotettu käyttäjä ja ylläpitäjä voi lisätä, poistaa ja muokata artistien ja albumien tietoja.
   * Ylläpitäjä voi poistaa käyttäjien arvosteluja.
 ## Kuinka käyttää ohjelmaa
-Kloonaa repositorio koneellesi ja siirry juurikansioon. Luo kansioon .env-tiedosto ja määritä sisältö seuraavanlaiseksi:
+Varmista että sinulla on Docker asennettuna. Kloonaa repositorio koneellesi ja siirry juurikansioon. Luo kansioon .env-tiedosto ja määritä sisältö.
+Käyttäjän nimen, salasanan ja tietokannan nimen voi valita itse. Luo SECRET_KEY esimerkiksi pythonin secrets moduulin token_hex(16):lla.
 ```
-DATABASE_URL=<tietokannan-paikallinen-osoite> (esim DATABASE_URL=postgresql:///user)
+POSTGRES_USER=albumiarvioija
+POSTGRES_PASSWORD=albums
+POSTGRES_DB=albums-db
+DATABASE_URL=postgresql://albumiarvioija:albums@db:5432/albums-db
 SECRET_KEY=<salainen-avain>
 ```
-Aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
+Rakenna ohelma ajamalla:
+
 ```
-python3 -m venv venv
-source venv/bin/activate (source venv\Scripts\activate Windowsilla)
-pip install -r ./requirements.txt
+docker compose build
 ```
-Käynnistä postgersql tietokanta ja määritä tietokannan skeema komennolla
+
+Ohjelma käynnistettän ajamalla:
 ```
-psql < schema.sql
+docker compose up
 ```
-Voit lisätä artisteja ja albumeita joko itse tai ajaa testausta varten (lisääminen saattaa kestää hetken)
+Voit lisätä artisteja ja albumeita joko itse tai ajaa testausta varten (lisääminen kestää hetken). Psql parametrit
+ovat samat mitä .env tiedostoon on määritelty.
 ```
-psql < example.sql
-```
-Tarvittaessa koko tietokannan voi tyhjentää ja alustaa komennoilla psql:llä
-```
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-```
-käynnistä sovellus komennolla
-```
-flask run
+psql -U albumiarvioija -h localhost -p 5432 -d albums-db < example.sql
 ```
